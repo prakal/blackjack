@@ -2,6 +2,8 @@ class window.Hand extends Backbone.Collection
   model: Card
 
   initialize: (array, @deck, @isDealer) ->
+  stand: ->
+    debugger
 
   hit: ->
     @add(@deck.pop())
