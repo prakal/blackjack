@@ -2,8 +2,11 @@ class window.Hand extends Backbone.Collection
   model: Card
 
   initialize: (array, @deck, @isDealer) ->
+
+
   stand: ->
-    debugger
+    @at(0).flip()
+    @hit()
 
   hit: ->
     @add(@deck.pop())
@@ -11,6 +14,8 @@ class window.Hand extends Backbone.Collection
   hasAce: -> @reduce (memo, card) ->
     memo or card.get('value') is 1
   , 0
+
+  hasBusted: false
 
   minScore: -> @reduce (score, card) ->
     score + if card.get 'revealed' then card.get 'value' else 0
