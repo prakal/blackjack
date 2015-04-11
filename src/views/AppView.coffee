@@ -9,11 +9,17 @@ class window.AppView extends Backbone.View
     'click .hit-button': -> @checkBust()
     'click .stand-button': -> @func()
 
+
   func: ->
     @model.get('dealerHand').stand()
     @model.logic()
-    alert('Game Over')
-    @initialize()
+    @render()
+    that = @
+    @$el.append('<div class="reset">"Text"</div>')
+    `$('div').on('click', '.reset', function() {
+    that.model.newGame();
+    that.render();
+    });`
 
   checkBust: ->
     @model.get('playerHand').hit()

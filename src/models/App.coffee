@@ -12,8 +12,9 @@ class window.App extends Backbone.Model
     @set 'dealerHand', deck.dealDealer()
 
   logic: ->
-    dealerHand = @get('dealerHand').scores()[0]
-    if @get('dealerHand').hasAce() and dealerHand <= 16
+    dealerHand = @get('dealerHand').scores()
+    # debugger
+    if dealerHand <= 16
       console.log ("dealer hits")
       @get('dealerHand').hit()
       @logic
@@ -22,39 +23,27 @@ class window.App extends Backbone.Model
       @scoreEval()
 
   isBusted: ->
-    if @get('playerHand').scores()[1] > 21 and !@get('playerHand').hasAce()
+    if @get('playerHand').scores() > 21
       console.log ("Player busts")
       @get('playerHand').hasBusted = true
+
     else
-      if @get('playerHand').scores[0] > 21
-        console.log ("Player busts")
-        @get('playerHand').hasBusted = true
-      else
-        if @get('dealerHand').scores()[1] > 21 and !@get('dealerHand').hasAce()
-          console.log ("Dealer busts")
-          @get('dealerHand').hasBusted = true
-        else
-          if @get('dealerHand').scores[0] > 21
-            console.log("Dealer busts")
-            @get('dealerHand').hasBusted = true
+      if @get('dealerHand').scores() > 21
+        console.log ("Dealer busts")
+        @get('dealerHand').hasBusted = true
 
   scoreEval: ->
     if @get('playerHand').hasBusted
       console.log ("...Dealer Wins")
-      @newGame()
     else
       if @get('dealerHand').hasBusted
         console.log ("...Player Wins")
-        @newGame()
       else
-        if @get('playerHand').scores()[0] > @get('dealerHand').scores()[0]
+        if @get('playerHand').scores() > @get('dealerHand').scores()
           console.log ("Player wins")
-          @newGame()
         else
-          if @get('playerHand').scores()[0] == @get('dealerHand').scores()[0]
+          if @get('playerHand').scores() == @get('dealerHand').scores()
             console.log ("Draw, game over")
-            @newGame()
           else
             console.log ("Dealer wins")
-            @newGame()
 

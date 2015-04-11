@@ -5,6 +5,7 @@ class window.CardView extends Backbone.View
 
   initialize: -> @render()
 
+
   render: ->
     @$el.children().detach()
     @$el.html @template @model.attributes
