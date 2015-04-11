@@ -3,6 +3,7 @@ class window.AppView extends Backbone.View
     <button class="hit-button">Hit</button> <button class="stand-button">Stand</button>
     <div class="player-hand-container"></div>
     <div class="dealer-hand-container"></div>
+    <div class="chipCount"></div>
   '
 
   events:
@@ -15,10 +16,11 @@ class window.AppView extends Backbone.View
     @model.logic()
     @render()
     that = @
-    @$el.append('<div class="reset">"Text"</div>')
+    chips = @model.get('chips')
+    @$el.append('<div class="reset">'+chips+' </div>')
     `$('div').on('click', '.reset', function() {
-    that.model.newGame();
-    that.render();
+      that.model.newGame();
+      that.render();
     });`
 
   checkBust: ->
@@ -33,4 +35,5 @@ class window.AppView extends Backbone.View
     @$el.html @template()
     @$('.player-hand-container').html new HandView(collection: @model.get 'playerHand').el
     @$('.dealer-hand-container').html new HandView(collection: @model.get 'dealerHand').el
+    @$('.chipCount').html @model.get 'chips'
 

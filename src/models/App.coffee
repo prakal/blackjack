@@ -5,6 +5,8 @@ class window.App extends Backbone.Model
     @set 'deck', deck = new Deck()
     @set 'playerHand', deck.dealPlayer()
     @set 'dealerHand', deck.dealDealer()
+    @set 'chips', 100
+
 
   newGame: ->
     @set 'deck', deck = new Deck()
@@ -35,15 +37,19 @@ class window.App extends Backbone.Model
   scoreEval: ->
     if @get('playerHand').hasBusted
       console.log ("...Dealer Wins")
+      @set 'chips', 0
     else
       if @get('dealerHand').hasBusted
         console.log ("...Player Wins")
+        @set 'chips', (@get 'chips') + 100
       else
         if @get('playerHand').scores() > @get('dealerHand').scores()
           console.log ("Player wins")
+          @set 'chips', (@get 'chips') + 100
         else
           if @get('playerHand').scores() == @get('dealerHand').scores()
             console.log ("Draw, game over")
           else
             console.log ("Dealer wins")
+            @set 'chips', (@get 'chips') + 100
 

@@ -6,7 +6,13 @@
   height: 167px;
   margin-right: 40px;
 }
-
+.chipCount{
+  position: absolute;
+  left: 450px;
+  top: 370px;
+  font-size: 420px;
+  font-color: black;
+}
 .reset {
   background: url('../img/game_over_funny.jpg');
   position: absolute;
@@ -16,7 +22,6 @@
   width:  500px;
   border: 10px;
   border-color: black;
-
   height: 299px;
   font-size: 40px;
   opacity: 0.7;
