@@ -12,6 +12,8 @@ class window.AppView extends Backbone.View
   func: ->
     @model.get('dealerHand').stand()
     @model.logic()
+    alert('Game Over')
+    @initialize()
 
   checkBust: ->
     @model.get('playerHand').hit()

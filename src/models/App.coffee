@@ -6,9 +6,13 @@ class window.App extends Backbone.Model
     @set 'playerHand', deck.dealPlayer()
     @set 'dealerHand', deck.dealDealer()
 
+  newGame: ->
+    @set 'deck', deck = new Deck()
+    @set 'playerHand', deck.dealPlayer()
+    @set 'dealerHand', deck.dealDealer()
+
   logic: ->
     dealerHand = @get('dealerHand').scores()[0]
-    debugger
     if @get('dealerHand').hasAce() and dealerHand <= 16
       console.log ("dealer hits")
       @get('dealerHand').hit()
@@ -37,31 +41,20 @@ class window.App extends Backbone.Model
   scoreEval: ->
     if @get('playerHand').hasBusted
       console.log ("...Dealer Wins")
+      @newGame()
     else
       if @get('dealerHand').hasBusted
         console.log ("...Player Wins")
+        @newGame()
       else
         if @get('playerHand').scores()[0] > @get('dealerHand').scores()[0]
           console.log ("Player wins")
+          @newGame()
         else
           if @get('playerHand').scores()[0] == @get('dealerHand').scores()[0]
             console.log ("Draw, game over")
+            @newGame()
           else
             console.log ("Dealer wins")
+            @newGame()
 
-
-    # console.log "...Dealer Wins" if @get('playerHand').hasBusted
-    # console.log "...Player Wins" if @get('dealerHand').hasBusted
-
-    # if @get('playerHand').scores()[0] > @get('dealerHand').scores()[0]
-    #   console.log ("Player wins")
-    # else
-    #   if @get('playerHand').scores()[0] == @get('dealerHand').scores()[0]
-    #     console.log ("Draw, game over")
-    #   else
-    #     console.log ("Dealer wins")
-
-
-# The scores are an array of potential scores.
-    # Usually, that array contains one element. That is the only score.
-    # when there is an ace, it offers you two scores - the original score, and score + 10.
